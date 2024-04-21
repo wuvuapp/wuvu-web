@@ -1,2 +1,2 @@
 # wuvu-web
-The public-facing website for Wuvu
+The public-facing website for Wuvu.
