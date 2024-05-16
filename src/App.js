@@ -15,7 +15,7 @@ function App() {
         textAlign: "center",
         height: "100%",
         background:
-          "linear-gradient(0deg, rgba(16,42,86,1) 0%, rgba(62,71,132,1) 100%)",
+          "linear-gradient(0deg, rgba(16,16,16,1) 0%, rgba(51,51,51,1) 100%)",
         flex: 1,
       }}
     >
