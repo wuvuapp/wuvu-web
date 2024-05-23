@@ -46,6 +46,8 @@ function App() {
     useState(false);
   const [uploadViewportVisible, setUploadViewportVisible] = useState(false);
 
+  const [editTimestamp, setEditTimestamp] = useState(Date.now());
+
   const dimensions = useWindowDimensions();
 
   const isDesktop = dimensions.width > 980;
@@ -90,8 +92,12 @@ function App() {
   };
 
   useEffect(() => {
+    refreshCredentials(credentials?.id);
+  }, []);
+
+  useEffect(() => {
     getCredentials();
-  }, [location.pathname]);
+  }, [editTimestamp, location.pathname]);
 
   const handleCallbackResponse = async (email) => {
     const requestBody = {
@@ -482,6 +488,7 @@ function App() {
           credentials={credentials}
           setCredentials={setCredentials}
           updateCredentials={updateCredentials}
+          setEditTimestamp={setEditTimestamp}
           editViewportVisible={editViewportVisible}
           setEditViewportVisible={setEditViewportVisible}
           uploadViewportVisible={uploadViewportVisible}
@@ -514,6 +521,7 @@ function App() {
           credentials={credentials}
           setCredentials={setCredentials}
           updateCredentials={updateCredentials}
+          setEditTimestamp={setEditTimestamp}
           subscriptionViewportVisible={subscriptionViewportVisible}
           setSubscriptionViewportVisible={setSubscriptionViewportVisible}
         />
@@ -554,6 +562,7 @@ function App() {
                     borderRadius: 12,
                     aspectRatio: 1,
                     marginRight: 15,
+                    marginBottom: 5,
                     objectFit: "cover",
                     borderWidth: 1,
                     borderColor: "#98a2b3",
@@ -564,6 +573,25 @@ function App() {
                     "https://wuvu-defaults.s3.amazonaws.com/defaultcredentials.png"
                   }
                 />
+              </div>
+              <div style={{ width: 355, textAlign: "left" }}>
+                <div style={{ display: "flex" }}>
+                  <P
+                    style={{
+                      color: "#101010",
+                      fontSize: 16,
+                      fontWeight: "600",
+                      marginBottom: 10,
+                    }}
+                  >
+                    @{credentials.username}
+                  </P>
+                </div>
+                {!!credentials.bio ? (
+                  <P style={{ color: "#555555", marginBottom: 10 }}>
+                    {credentials.bio}
+                  </P>
+                ) : null}
                 <Button
                   style={{
                     color: "#98a2bc",
@@ -583,110 +611,96 @@ function App() {
                   </P>
                 </Button>
               </div>
-              <div style={{ width: 355, textAlign: "left" }}>
-                <div style={{ display: "flex" }}>
-                  <P
-                    style={{
-                      color: "#101010",
-                      fontSize: 16,
-                      fontWeight: "600",
-                      marginBottom: 10,
-                    }}
-                  >
-                    @{credentials.username}
-                  </P>
-                </div>
-                {!!credentials.bio ? (
-                  <P style={{ color: "#555555", marginBottom: 40 }}>
-                    {credentials.bio}
-                  </P>
-                ) : null}
-                <hr />
-                <div style={{ display: "flex" }}>
-                  <P
-                    style={{
-                      color: "#555555",
-                    }}
-                  >
-                    Physique:
-                  </P>
-                  <div
-                    style={{
-                      color: "#ffffff",
-                      marginTop: 1,
-                      marginLeft: 5,
-                      fontSize: 10,
-                      paddingLeft: 8,
-                      paddingRight: 8,
-                      paddingTop: 2,
-                      paddingBottom: 2,
-                      borderRadius: 4,
-                      backgroundColor: "#101010",
-                      textAlign: "left",
-                      marginRight: 5,
-                      marginBottom: 5,
-                      fontStyle: "italic",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {credentials.characteristics.physique
-                      .slice(0, 1)
-                      .toUpperCase() +
-                      credentials.characteristics.physique.slice(1)}
-                  </div>
-                </div>
+            </div>
 
+            <hr />
+            <div style={{ textAlign: "left" }}>
+              <div style={{ display: "flex" }}>
                 <P
                   style={{
                     color: "#555555",
-                    marginTop: 5,
+                    marginTop: 0,
                   }}
                 >
-                  Aesthetics:
+                  Physique:
                 </P>
                 <div
                   style={{
-                    display: "flex",
-                    flexWrap: "wrap",
+                    color: "#ffffff",
+                    marginTop: 1,
+                    marginLeft: 10,
+                    fontSize: 10,
+                    paddingLeft: 8,
+                    paddingRight: 8,
+                    paddingTop: 2,
+                    paddingBottom: 2,
+                    borderRadius: 4,
+                    backgroundColor: "#101010",
+                    textAlign: "left",
+                    marginRight: 5,
+                    marginBottom: 5,
+                    fontStyle: "italic",
+                    fontWeight: "600",
                   }}
                 >
-                  {credentials.characteristics.aesthetics.map(
-                    (category, index) => (
-                      <div
-                        key={index}
-                        style={{
-                          color: "#ffffff",
-                          fontSize: 10,
-                          paddingLeft: 8,
-                          paddingRight: 8,
-                          paddingTop: 2,
-                          paddingBottom: 2,
-                          borderRadius: 4,
-                          backgroundColor: "#101010",
-                          textAlign: "left",
-                          marginRight: 5,
-                          marginBottom: 5,
-                          fontStyle: "italic",
-                          fontWeight: "600",
-                        }}
-                      >
-                        {category.slice(0, 1).toUpperCase() + category.slice(1)}
-                      </div>
-                    )
-                  )}
+                  {credentials.characteristics.physique
+                    .slice(0, 1)
+                    .toUpperCase() +
+                    credentials.characteristics.physique.slice(1)}
                 </div>
+              </div>
+
+              <P
+                style={{
+                  color: "#555555",
+                  marginTop: 5,
+                  marginBottom: 10,
+                }}
+              >
+                Aesthetics:
+              </P>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                {credentials.characteristics.aesthetics.map(
+                  (category, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        color: "#ffffff",
+                        fontSize: 10,
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        paddingTop: 2,
+                        paddingBottom: 2,
+                        borderRadius: 4,
+                        backgroundColor: "#101010",
+                        textAlign: "left",
+                        marginRight: 5,
+                        marginBottom: 5,
+                        fontStyle: "italic",
+                        fontWeight: "600",
+                      }}
+                    >
+                      {category.slice(0, 1).toUpperCase() + category.slice(1)}
+                    </div>
+                  )
+                )}
               </div>
             </div>
 
             <hr />
-            <div style={{ display: "flex", marginBottom: 15 }}>
-              <P style={{ color: "#555555", marginTop: 20, marginBottom: 10 }}>
+            <div style={{ display: "flex" }}>
+              <P style={{ color: "#555555", marginTop: 0, marginBottom: 10 }}>
                 Subscription:
               </P>
               <div
                 style={{
-                  marginTop: 17,
                   marginBottom: 5,
+                  marginTop: -2,
                   marginLeft:
                     credentials.subscription === "max" ||
                     credentials.subscription === "pro"
@@ -734,6 +748,7 @@ function App() {
               type="solid"
               style={{
                 color: "#ffd971",
+                marginTop: 4,
               }}
               onClick={() => {
                 setSubscriptionViewportVisible(true);

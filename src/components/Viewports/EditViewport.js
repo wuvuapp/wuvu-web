@@ -165,9 +165,9 @@ const EditViewport = ({
         requestConfig
       )
       .then(async (res) => {
+        setIsLoading(false);
         updateCredentials(res.data.account);
         setEditTimestamp(Date.now());
-        setIsLoading(false);
         setEditViewportVisible(false);
       })
       .catch((error) => {

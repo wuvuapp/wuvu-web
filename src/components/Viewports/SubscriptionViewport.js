@@ -1,21 +1,19 @@
 "use es6";
 
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
-import H3 from "../Text/H3";
-import H2 from "../Text/H2";
-import P from "../Text/P";
-import HR from "../Text/HR";
+import React from "react";
 import Viewport from "./Viewport";
+import SubscriptionCard from "../Cards/SubscriptionCard";
+import { useWindowDimensions } from "../../utils/CustomHooks";
 
 const SubscriptionViewport = ({
+  credentials = {},
   isDesktop = null,
+  updateCredentials = {},
   subscriptionViewportVisible = false,
   setSubscriptionViewportVisible = {},
+  setEditTimestamp = {},
 }) => {
-  const navigate = useNavigate();
+  const dimensions = useWindowDimensions();
 
   const requestConfig = {
     headers: {
@@ -26,21 +24,39 @@ const SubscriptionViewport = ({
   return (
     <Viewport
       isDesktop={isDesktop}
-      heading={"Wuvu Subscriptions"}
+      heading={"Subscriptions"}
       viewportVisible={subscriptionViewportVisible}
       setViewportVisible={setSubscriptionViewportVisible}
     >
-      <div style={{ height: 10 }} />
+      <div style={{ height: 5 }} />
       <div
         style={{
           margin: "auto",
           justifyContent: "center",
           textAlign: "center",
-          maxHeight: 550,
           overflowY: "scroll",
+          maxHeight: dimensions.height - 60,
         }}
       >
-        Coming soon!
+        <div
+          style={{
+            display: isDesktop ? "flex" : "block",
+            justifyContent: "space-around",
+          }}
+        >
+          {["free", "pro", "max"].map((type, index) => (
+            <SubscriptionCard
+              key={index}
+              type={type}
+              isDesktop={isDesktop}
+              credentials={credentials}
+              updateCredentials={updateCredentials}
+              subscriptionViewportVisible={subscriptionViewportVisible}
+              setSubscriptionViewportVisible={setSubscriptionViewportVisible}
+              setEditTimestamp={setEditTimestamp}
+            />
+          ))}
+        </div>
       </div>
     </Viewport>
   );
