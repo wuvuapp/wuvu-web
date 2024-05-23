@@ -32,3 +32,22 @@ code {
     transform: rotate(360deg);
   }
 }
+
+#browse-files {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+#browse-files-label {
+  background-color: rgba(16, 16, 16, 0.975);
+  color: #ffffff;
+  border: 2px solid rgba(16, 16, 16, 0.975);
+  border-radius: 8px;
+  width: 350px;
+  margin: auto;
+}
+
+#browse-files-label:hover {
+  opacity: 0.5;
+}
