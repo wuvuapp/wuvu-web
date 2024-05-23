@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import AWS from "aws-sdk";
 
 import Button from "../Buttons/Button";
@@ -37,9 +36,6 @@ const EditViewport = ({
   setUploadViewportVisible = {},
   setEditTimestamp = {},
 }) => {
-  const navigate = useNavigate();
-  const oldusername = credentials.username;
-
   const [username, setUsername] = useState(credentials.username || "");
   const [usernameValid, setUsernameValid] = useState(true);
   const [name, setName] = useState(credentials.name || "");
