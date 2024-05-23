@@ -66,14 +66,13 @@ const SubscriptionCard = ({
               : "Wuvu Free"
           }.`
         );
-        console.log(res.data.subscription);
         updateCredentials(res.data.account);
         setEditTimestamp(Date.now());
         setSubscriptionViewportVisible(false);
       })
       .catch((error) => {
         setIsLoading(false);
-        console.log(error);
+        // console.log(error);
       });
   };
 
