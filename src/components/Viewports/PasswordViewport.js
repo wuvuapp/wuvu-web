@@ -153,28 +153,51 @@ const PasswordViewport = ({
         <div
           style={{
             display: "flex",
-            margin: "auto",
-            width: 355,
+            marginLeft: 15,
+            marginRight: 15,
           }}
         >
-          <input
-            className="textinput"
-            type="submit"
-            value={"Change Password"}
-            style={{
-              cursor: "pointer",
-              marginTop: 8,
-              width: "100%",
-              padding: 8,
-              fontWeight: 600,
-              fontSize: 14,
-              borderRadius: 8,
-              backgroundColor: "#000000",
-              borderColor: "#000000",
-              borderStyle: "solid",
-              color: "#ffffff",
-            }}
-          />
+          {!isChanging ? (
+            <div
+              style={{
+                cursor: "pointer",
+                width: 345,
+                margin: "auto",
+                marginTop: 10,
+                paddingTop: 6,
+                paddingBottom: 4,
+                fontWeight: "600",
+                fontSize: 14,
+                borderRadius: 8,
+                backgroundColor: "#000000",
+                borderColor: "#000000",
+                borderStyle: "solid",
+                color: "#ffffff",
+              }}
+            >
+              <Loading color="white" />
+            </div>
+          ) : (
+            <input
+              className="textinput"
+              type="submit"
+              value={"Change Password"}
+              style={{
+                cursor: "pointer",
+                margin: "auto",
+                marginTop: 12,
+                width: 350,
+                padding: 8,
+                fontWeight: "600",
+                fontSize: 14,
+                borderRadius: 8,
+                backgroundColor: "#000000",
+                borderColor: "#000000",
+                borderStyle: "solid",
+                color: "#ffffff",
+              }}
+            />
+          )}
         </div>
 
         {errorMessage && !isChanging ? (
@@ -194,7 +217,6 @@ const PasswordViewport = ({
             {errorMessage}
           </P>
         ) : null}
-        {isChanging && !errorMessage ? <Loading color="focused" /> : null}
       </form>
     </Viewport>
   );
