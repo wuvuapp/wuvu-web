@@ -123,7 +123,6 @@ function App() {
         requestConfig
       )
       .then(async (res) => {
-        console.log(res);
         if (res.data.account) {
           setIsAuthenticating(false);
           updateCredentials(res.data.account);
@@ -312,6 +311,7 @@ function App() {
                 style={{ maxWidth: 400, marginLeft: 20 }}
                 alt="logo"
               />
+              <H2 style={{ color: "#ffd971" }}>Account Console</H2>
               <div
                 style={{
                   position: "fixed",

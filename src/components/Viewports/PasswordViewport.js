@@ -157,7 +157,7 @@ const PasswordViewport = ({
             marginRight: 15,
           }}
         >
-          {!isChanging ? (
+          {isChanging ? (
             <div
               style={{
                 cursor: "pointer",
