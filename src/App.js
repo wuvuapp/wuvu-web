@@ -11,8 +11,6 @@ import google from "./google.svg";
 import appstore from "./appstore.svg";
 import googleplay from "./googleplay.svg";
 
-import { countryCodeEmoji } from "country-code-emoji";
-
 import EditViewport from "./components/Viewports/EditViewport";
 import NoticeViewport from "./components/Viewports/NoticeViewport";
 import PasswordViewport from "./components/Viewports/PasswordViewport";
@@ -21,9 +19,27 @@ import SubscriptionViewport from "./components/Viewports/SubscriptionViewport";
 import P from "./components/Text/P";
 import Button from "./components/Buttons/Button";
 import Loading from "./components/Loading/Loading";
-import H1 from "./components/Text/H1";
 import H2 from "./components/Text/H2";
-import HR from "./components/Text/HR";
+
+const checkThirdPartyCookies = () => {
+  try {
+    document.cookie = "testcookie=1; SameSite=None; Secure; path=/";
+    const hasCookies = document.cookie.indexOf("testcookie") !== -1;
+    document.cookie =
+      "testcookie=1; SameSite=None; Secure; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/";
+    return hasCookies;
+  } catch (e) {
+    return false;
+  }
+};
+
+const promptForThirdPartyCookies = () => {
+  if (!checkThirdPartyCookies()) {
+    alert(
+      "Please enable third-party cookies for this website to function properly."
+    );
+  }
+};
 
 function App() {
   const navigate = useNavigate();
@@ -168,6 +184,10 @@ function App() {
     signinGoogle();
     setIsAuthenticating(false);
   }, [credentials]);
+
+  useEffect(() => {
+    promptForThirdPartyCookies();
+  }, []);
 
   // var accessToken = gapi.auth.getToken().access_token;
 
@@ -740,6 +760,21 @@ function App() {
                     }}
                   >
                     <P style={{ fontWeight: "600" }}>Sign Out</P>
+                  </Button>
+                </div>
+                <div style={{ display: "flex", width: "100%", marginTop: 15 }}>
+                  <Button
+                    type="solid"
+                    style={{
+                      color: "#ffffff",
+                      backgroundColor: "#eb5757",
+                      flex: 1,
+                    }}
+                    onClick={() => {
+                      setNoticeViewportVisible("deleteaccount");
+                    }}
+                  >
+                    <P style={{ fontWeight: "600" }}>Delete Account</P>
                   </Button>
                 </div>
               </div>

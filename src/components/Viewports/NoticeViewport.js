@@ -205,7 +205,7 @@ const NoticeViewport = ({
             {type === "signout"
               ? "Sign Out?"
               : type === "deleteaccount"
-              ? "Delete Account"
+              ? "Delete Account?"
               : type === "forgotpassword"
               ? "Forgot Password?"
               : null}
