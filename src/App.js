@@ -781,11 +781,13 @@ function App() {
             </div>
           </div>
         )}
-        <div style={{ display: "flex", marginTop: 60 }}>
+        <div
+          style={{ display: "flex", marginTop: 60, justifyContent: "center" }}
+        >
           <img
             onClick={() => {
               window.open(
-                "https://www.apple.com/app-store/",
+                "https://apps.apple.com/us/app/wuvu/id6499083539",
                 "_blank",
                 "noreferrer"
               );
@@ -797,26 +799,8 @@ function App() {
               currentTarget.style.opacity = "100%";
             }}
             src={appstore}
-            style={{ cursor: "pointer", width: 170, marginRight: 7.5 }}
+            style={{ cursor: "pointer", width: 170 }}
             alt="Download Wuvu on the Apple App Store!"
-          />
-          <img
-            onClick={() => {
-              window.open(
-                "https://play.google.com/store/apps",
-                "_blank",
-                "noreferrer"
-              );
-            }}
-            onMouseOver={({ currentTarget }) => {
-              currentTarget.style.opacity = "50%";
-            }}
-            onMouseOut={({ currentTarget }) => {
-              currentTarget.style.opacity = "100%";
-            }}
-            src={googleplay}
-            style={{ cursor: "pointer", width: 170, marginLeft: 7.5 }}
-            alt="Download Wuvu on the Google Play Store!"
           />
         </div>
       </div>
